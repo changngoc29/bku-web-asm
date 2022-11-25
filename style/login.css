@@ -1,0 +1,36 @@
+.container {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.container div img {
+  width: 50%;
+  height: auto;
+}
+
+.container div .container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 50%;
+}
+
+.container div .container form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.container div .container form div {
+  width: 70%;
+}
+
+.container div .container form button {
+  width: 30%;
+}
