@@ -20,6 +20,6 @@ if (isset($_POST["login"])) {
         // echo $row['fullname'] . $row['role'];
         header("Location: ../../pages/home.php");
     } else {
-        header("Location: ../pages/login.php");
+        header("Location: ../../pages/login.php");
     }
 }
