@@ -10,6 +10,7 @@
     <style>
         <?php
         include "../main.css";
+        include "../style/task.css"
         ?>
     </style>
     <!-- Google fonts -->
@@ -25,10 +26,15 @@
 
 <body>
     <div class="container-fluid">
-        <div class="row flex-nowrap">
+        <div class="row flex-nowrap w-100">
             <?php
             include "../components/main/sidebar.php";
             ?>
+
+            <script>
+                var taskLink = document.querySelector('#sidebar-menu li:nth-child(2)');
+                taskLink.classList.add('isActive');
+            </script>
 
             <div class="col-auto col-10 p-0">
                 <div class="page-title">
@@ -38,11 +44,175 @@
 
                 <div class="page-content">
                     <!--  -->
-                    Code here
-                    <!--  -->
-                </div>
-            </div>
+                    <div class="page-content row align-bottom justify-content-center">
+                        <!-- Table -->
+                        <div id="task-list" class="col-10 col-auto">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Task ID</th>
+                                        <th scope="col">Description</th>
+                                        <th scope="col">Staff ID</th>
+                                        <th scope="col">Start date</th>
+                                        <th scope="col">Deadline</th>
+                                        <th scope="col">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="table-success">
+                                        <th scope="row">1</th>
+                                        <td>...</td>
+                                        <td>...</td>
+                                        <td>...</td>
+                                        <td>...</td>
+                                        <td>Finished</td>
+                                    </tr>
+                                    <tr class="table-success">
+                                        <th scope="row">2</th>
+                                        <td>...</td>
+                                        <td>...</td>
+                                        <td>...</td>
+                                        <td>...</td>
+                                        <td>Finished</td>
+                                    </tr>
+                                    <tr class="table-warning">
+                                        <th scope="row">3</th>
+                                        <td>...</td>
+                                        <td>...</td>
+                                        <td>...</td>
+                                        <td>...</td>
+                                        <td>Pending</td>
+                                    </tr>
+                                    <tr class="table-success">
+                                        <th scope="row">4</th>
+                                        <td>...</td>
+                                        <td>...</td>
+                                        <td>...</td>
+                                        <td>...</td>
+                                        <td>Finished</td>
+                                    </tr>
+                                    <tr class="table-danger">
+                                        <th scope="row">5</th>
+                                        <td>...</td>
+                                        <td>...</td>
+                                        <td>...</td>
+                                        <td>...</td>
+                                        <td>Overdue</td>
+                                    </tr>
+                                    <tr class="table-warning">
+                                        <th scope="row">6</th>
+                                        <td>...</td>
+                                        <td>...</td>
+                                        <td>...</td>
+                                        <td>...</td>
+                                        <td>Pending</td>
+                                    </tr>
+                                    <tr class="table-danger">
+                                        <th scope="row">7</th>
+                                        <td>...</td>
+                                        <td>...</td>
+                                        <td>...</td>
+                                        <td>...</td>
+                                        <td>Overdue</td>
+                                    </tr>
+                                    <tr class="table-warning">
+                                        <th scope="row">8</th>
+                                        <td>...</td>
+                                        <td>...</td>
+                                        <td>...</td>
+                                        <td>...</td>
+                                        <td>Pending</td>
+                                    </tr>
+                                    <tr class="table-success">
+                                        <th scope="row">9</th>
+                                        <td>...</td>
+                                        <td>...</td>
+                                        <td>...</td>
+                                        <td>...</td>
+                                        <td>Finished</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
 
+                        <!-- Pagination for table-->
+                        <div id="pagination-bar" class="col-10 col-auto">
+                            <nav aria-label="...">
+                                <ul class="pagination justify-content-center">
+                                    <li class="page-item disabled">
+                                        <span class="page-link">Previous</span>
+                                    </li>
+                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                    <li class="page-item active">
+                                        <span class="page-link">
+                                            2
+                                            <span class="sr-only"></span>
+                                        </span>
+                                    </li>
+                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="#">Next</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+
+                        <!-- Task assignment-->
+                        <div id="task-button" class="col-10 col-auto">
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                    Create task
+                                </button>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Create Task</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form>
+                                                    <div class="mb-3">
+                                                        <label for="exampleInputEmail1" class="form-label">Description</label>
+                                                        <input type="email" class="form-control" id="exampleInputEmail1">
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="exampleInputPassword1" class="form-label">Staff
+                                                            ID</label>
+                                                        <input type="password" class="form-control" id="exampleInputPassword1">
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="exampleInputPassword1" class="form-label">Deadline</label>
+                                                        <input type="password" class="form-control" id="exampleInputPassword1">
+                                                    </div>
+                                                    <label class="form-label" for="customFile">Upload related
+                                                        documents</label>
+                                                    <input type="file" class="form-control" id="customFile" />
+                                                </form>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                <button type="button" class="btn btn-primary">Submit</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-center">
+
+                        </div>
+                    </div>
+
+                </div>
+                <!--  -->
+            </div>
         </div>
+
+    </div>
     </div>
 </body>

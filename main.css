@@ -12,6 +12,84 @@
 
 /* sidebar */
 #sidebar {
-  height: 100vh;
-  background-color: #ccc;
+  height: 100vh !important;
+  background-color: #484c7f;
+  color: #ffffff;
+}
+
+#sidebar div {
+  width: 100%;
+  height: 100%;
+  justify-content: space-between;
+}
+
+#sidebar .user-branch {
+  display: flex;
+  flex-direction: row;
+  background-color: #ffffff;
+  width: 100%;
+  height: auto;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+#sidebar .user-branch__logo {
+  flex-shrink: 2;
+  width: 20%;
+  height: auto;
+  padding-left: 2px;
+}
+
+#sidebar .user-branch span {
+  color: #000;
+}
+
+#sidebar .user-branch__desc {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+#sidebar .user-branch__desc p {
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+#sidebar .user-branch__desc span {
+  font-weight: 500;
+  color: rgb(144, 156, 156);
+  font-style: italic;
+}
+
+#sidebar span,
+i {
+  color: #ffffff;
+}
+/* 
+#sidebar-menu .isActive {
+  background-color: #e3912f;
+} */
+
+#sidebar-menu .isActive span {
+  color: #e3912f;
+}
+
+#sidebar-menu .isActive i {
+  color: #e3912f;
+}
+
+/* Main */
+.page-title {
+  border-bottom: #ccc solid 1px;
+  margin: 5px;
+}
+
+.page-title h2 {
+  display: block;
+  margin-left: 10px;
+  font-weight: 700;
+  color: #484c7f;
 }

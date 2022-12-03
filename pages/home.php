@@ -25,10 +25,14 @@
 
 <body>
     <div class="container-fluid">
-        <div class="row flex-nowrap">
+        <div class="row flex-nowrap w-100">
             <?php
             include "../components/main/sidebar.php";
             ?>
+            <script>
+                var homeLink = document.querySelector('#sidebar-menu li:nth-child(1)');
+                homeLink.classList.add('isActive');
+            </script>
 
             <div class="col-auto col-10 p-0">
                 <div class="page-title">

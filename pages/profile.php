@@ -25,7 +25,7 @@
 
 <body>
     <div class="container-fluid">
-        <div class="row flex-nowrap">
+        <div class="row flex-nowrap w-100">
             <?php
             include "../components/main/sidebar.php";
             ?>
