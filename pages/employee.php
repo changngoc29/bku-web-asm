@@ -27,6 +27,11 @@
             include "../components/main/sidebar.php";
             ?>
 
+            <script>
+                var employeeLink = document.querySelector('#sidebar-menu li:nth-child(3)');
+                employeeLink.classList.add('isActive');
+            </script>
+
             <div class="col-auto col-10 p-0">
                 <div class="page-title">
                     <h2>Employee</h2>

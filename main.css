@@ -73,11 +73,13 @@ i {
   background-color: #e3912f;
 } */
 
-#sidebar-menu .isActive span {
+#sidebar-menu .isActive span,
+#sidebar-user .isActive span {
   color: #e3912f;
 }
 
-#sidebar-menu .isActive i {
+#sidebar-menu .isActive i,
+#sidebar-user .isActive i {
   color: #e3912f;
 }
 
