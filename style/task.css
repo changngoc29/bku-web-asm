@@ -1,0 +1,16 @@
+th,
+td {
+  vertical-align: text-top;
+}
+
+.modal-body > div {
+  margin-bottom: 20px;
+}
+
+.view-task {
+  width: 8%;
+}
+
+.task-id {
+  width: 10%;
+}
