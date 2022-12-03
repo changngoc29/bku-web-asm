@@ -108,12 +108,7 @@
                             </thead>
                             <tbody class="table-group-divider">
                                 <?php
-                                $hostname = "localhost";
-                                $username = "root";
-                                $password = "trungkien2901";
-                                $database = "web_assignment";
-
-                                $conn =  mysqli_connect($hostname, $username, $password, $database) or die('Failed Database Connection');
+                                include "./../utils/dbConnect.php";
 
                                 $query = " SELECT * FROM user";
                                 $result = mysqli_query($conn, $query);
