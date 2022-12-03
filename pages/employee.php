@@ -36,14 +36,14 @@
                     <!--  -->
                     <div class="create-btn">
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-primary custom-create-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        <button type="button" class="btn btn-primary custom-create-btn" data-bs-toggle="modal" data-bs-target="#employeeCreateModal">
                             Add employee
                         </button>
-                        <div class="modal fade modal-custom" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal fade modal-custom" id="employeeCreateModal" tabindex="-1" aria-labelledby="employeeCreateModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Employee Information Registration</h1>
+                                        <h1 class="modal-title fs-5" id="employeeCreateModalLabel">Employee Information Registration</h1>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body modal-body-custom">
@@ -121,14 +121,14 @@
                                     <td>" . $row["role"] . "</td>
                                     <td>" . $row["dep"] . "</td>
                                     <td>
-                                        <button type='button' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#exampleModal{$row["id"]}'>
+                                        <button type='button' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#employeeView{$row["id"]}'>
                                             View
                                         </button>
-                                        <div class='modal fade' id='exampleModal{$row["id"]}' tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+                                        <div class='modal fade' id='employeeView{$row["id"]}' tabindex='-1' aria-labelledby='employeeViewLabel' aria-hidden='true'>
                                             <div class='modal-dialog modal-dialog-centered'>
                                                 <div class='modal-content'>
                                                     <div class='modal-header'>
-                                                        <h1 class='modal-title fs-5' id='exampleModalLabel'>Modal title</h1>
+                                                        <h1 class='modal-title fs-5' id='employeeViewLabel'>Modal title</h1>
                                                         <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
                                                     </div>
                                                     <div class='modal-body'>
@@ -141,7 +141,6 @@
                                                     </div>
                                                     <div class='modal-footer'>
                                                         <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Close</button>
-                                                        <button type='button' class='btn btn-primary'>Save changes</button>
                                                     </div>
                                                 </div>
                                             </div>
