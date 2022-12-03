@@ -1,0 +1,36 @@
+.create-btn .modal-custom .modal-body-custom .form-inner form label {
+  margin-bottom: 10px;
+}
+
+.create-btn .modal-custom .modal-body-custom .form-inner form input {
+  margin-bottom: 15px;
+  width: 100%;
+  padding: 10px 15px;
+}
+
+.create-btn
+  .modal-custom
+  .modal-body-custom
+  .form-inner
+  form
+  input[type='submit'] {
+  margin-top: 15px;
+  width: 30%;
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  background: none;
+  border-radius: 8px;
+  transition: 0.4s;
+}
+
+.create-btn
+  .modal-custom
+  .modal-body-custom
+  .form-inner
+  form
+  input[type='submit']:hover {
+  background: #0d6efd;
+  color: #fff;
+  border: none;
+}
