@@ -1,0 +1,23 @@
+img {
+  height: 400px;
+  width: 400px;
+}
+
+.page-content {
+  margin: 120px 0 40px 40px;
+}
+
+#profile-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.card {
+  width: 700px;
+}
+
+a {
+  text-decoration: none;
+}
