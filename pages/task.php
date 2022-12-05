@@ -1,3 +1,6 @@
+<?php
+include "./../utils/task/getTask.php";
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,8 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- CSS only -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous" />
 
     <!-- Google fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,9 +18,7 @@
     <!-- Bootstrap Icon -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <!-- JavaScript Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
-        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 
     <style>
         <?php include "../main.css";
@@ -29,7 +29,7 @@
 
 <body>
     <div class="container-fluid">
-        <div class="row flex-nowrap w-100">
+        <div class="row flex-nowrap">
             <?php
             include "../components/main/sidebar.php";
             ?>
@@ -47,7 +47,53 @@
 
                 <div class="page-content">
                     <!--  -->
-                    <div class="row justify-content-center">
+                    <div class="row justify-content-center w-100">
+                        <!-- Task assignment-->
+                        <div id="task-button" class="col-10 col-auto">
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createTaskModal">
+                                    Create task
+                                </button>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="createTaskModal" tabindex="-1" aria-labelledby="createTaskModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="createTaskModalLabel">Create Task</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form>
+                                                    <div class="mb-3">
+                                                        <label for="exampleInputEmail1" class="form-label">Description</label>
+                                                        <input type="email" class="form-control" id="exampleInputEmail1">
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="exampleInputPassword1" class="form-label">Staff
+                                                            ID</label>
+                                                        <input type="password" class="form-control" id="exampleInputPassword1">
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="exampleInputPassword1" class="form-label">Deadline</label>
+                                                        <input type="password" class="form-control" id="exampleInputPassword1">
+                                                    </div>
+                                                    <label class="form-label" for="customFile">Upload related
+                                                        documents</label>
+                                                    <input type="file" class="form-control" id="customFile" />
+                                                </form>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                <button type="button" class="btn btn-primary">Submit</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <!-- Table -->
                         <div id="task-list" class="col-10 col-auto">
                             <table class="table">
@@ -62,402 +108,53 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr class="table-success">
-                                        <th scope="row" class="task-id">1</th>
-                                        <td>...</td>
-                                        <td>...</td>
-                                        <td>...</td>
-                                        <td>Finished</td>
-                                        <td class="view-task">
-                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                                data-bs-target="#exampleModal">
+                                    <?php
+                                    $tasks = getAllTask();
+                                    foreach ($tasks as $task) {
+                                        $row_color = getTaskRowColor($task['status']);
+                                        echo "
+                                        <tr class='table-{$row_color}'>
+                                        <th scope='row' class='task-id'>{$task['id']}</th>
+                                        <td>{$task['title']}</td>
+                                        <td>{$task['staff_id']}</td>
+                                        <td>{$task['deadline']}</td>
+                                        <td>{$task['status']}</td>
+                                        <td class='view-task'>
+                                            <button type='button' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#viewTaskModal'>
                                                 View
                                             </button>
 
                                             <!-- Modal -->
-                                            <div class="modal fade" id="exampleModal" tabindex="-1"
-                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h1 class="modal-title fs-5" id="exampleModalLabel">
-                                                                Task title</h1>
-                                                            <button type="button" class="btn-close"
-                                                                data-bs-dismiss="modal" aria-label="Close"></button>
+                                            <div class='modal fade' id='viewTaskModal' tabindex='-1' aria-labelledby='viewTaskModalLabel' aria-hidden='true'>
+                                                <div class='modal-dialog'>
+                                                    <div class='modal-content'>
+                                                        <div class='modal-header'>
+                                                            <h1 class='modal-title fs-5' id='viewTaskModalLabel'>
+                                                                {$task['title']}</h1>
+                                                            <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
                                                         </div>
-                                                        <div class="modal-body">
-                                                            <div>Task ID : <span> ... </span></div>
+                                                        <div class='modal-body'>
+                                                            <div>Task ID : <span> {$task['id']} </span></div>
                                                             <div>Description :
-                                                                <div>Lorem ipsum dolor sit amet consectetur adipisicing
-                                                                    elit. Ab, laborum eos voluptate est quidem ut nam
-                                                                    alias possimus dolore ullam deleniti iusto sit error
-                                                                    tempora harum esse dolorem sunt explicabo.
+                                                                <div>
+                                                                {$task['description']}
                                                                 </div>
                                                             </div>
-                                                            <div>Attachment(s) : <a href="...">files</a></div>
+                                                            <div>Employee : <span> {$task['staff_id']} </span></div>
+                                                            <div>Start Date : <span> {$task['start_date']} </span></div>
+                                                            <div>Due Date : <span> {$task['deadline']} </span></div>
+                                                            <div>Attachment(s) : <a href='...'>files</a></div>
                                                         </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary"
-                                                                data-bs-dismiss="modal">Close</button>
+                                                        <div class='modal-footer'>
+                                                            <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Close</button>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </td>
-
-                                    </tr>
-                                    <tr class="table-success">
-                                        <th scope="row">2</th>
-                                        <td>...</td>
-                                        <td>...</td>
-                                        <td>...</td>
-                                        <td>Finished</td>
-                                        <td class="view-task">
-                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                                data-bs-target="#exampleModal">
-                                                View
-                                            </button>
-
-                                            <!-- Modal -->
-                                            <div class="modal fade" id="exampleModal" tabindex="-1"
-                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h1 class="modal-title fs-5" id="exampleModalLabel">
-                                                                Task title</h1>
-                                                            <button type="button" class="btn-close"
-                                                                data-bs-dismiss="modal" aria-label="Close"></button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <div>Task ID : <span> ... </span></div>
-                                                            <div>Description :
-                                                                <div>Lorem ipsum dolor sit amet consectetur adipisicing
-                                                                    elit. Ab, laborum eos voluptate est quidem ut nam
-                                                                    alias possimus dolore ullam deleniti iusto sit error
-                                                                    tempora harum esse dolorem sunt explicabo.
-                                                                </div>
-                                                            </div>
-                                                            <div>Attachment(s) : <a href="...">files</a></div>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary"
-                                                                data-bs-dismiss="modal">Close</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
-
-                                    </tr>
-                                    <tr class="table-warning">
-                                        <th scope="row">3</th>
-                                        <td>...</td>
-                                        <td>...</td>
-                                        <td>...</td>
-                                        <td>Pending</td>
-                                        <td class="view-task">
-                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                                data-bs-target="#exampleModal">
-                                                View
-                                            </button>
-
-                                            <!-- Modal -->
-                                            <div class="modal fade" id="exampleModal" tabindex="-1"
-                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h1 class="modal-title fs-5" id="exampleModalLabel">
-                                                                Task title</h1>
-                                                            <button type="button" class="btn-close"
-                                                                data-bs-dismiss="modal" aria-label="Close"></button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <div>Task ID : <span> ... </span></div>
-                                                            <div>Description :
-                                                                <div>Lorem ipsum dolor sit amet consectetur adipisicing
-                                                                    elit. Ab, laborum eos voluptate est quidem ut nam
-                                                                    alias possimus dolore ullam deleniti iusto sit error
-                                                                    tempora harum esse dolorem sunt explicabo.
-                                                                </div>
-                                                            </div>
-                                                            <div>Attachment(s) : <a href="...">files</a></div>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary"
-                                                                data-bs-dismiss="modal">Close</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
-
-                                    </tr>
-                                    <tr class="table-success">
-                                        <th scope="row">4</th>
-                                        <td>...</td>
-                                        <td>...</td>
-                                        <td>...</td>
-                                        <td>Finished</td>
-                                        <td class="view-task">
-                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                                data-bs-target="#exampleModal">
-                                                View
-                                            </button>
-
-                                            <!-- Modal -->
-                                            <div class="modal fade" id="exampleModal" tabindex="-1"
-                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h1 class="modal-title fs-5" id="exampleModalLabel">
-                                                                Task title</h1>
-                                                            <button type="button" class="btn-close"
-                                                                data-bs-dismiss="modal" aria-label="Close"></button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <div>Task ID : <span> ... </span></div>
-                                                            <div>Description :
-                                                                <div>Lorem ipsum dolor sit amet consectetur adipisicing
-                                                                    elit. Ab, laborum eos voluptate est quidem ut nam
-                                                                    alias possimus dolore ullam deleniti iusto sit error
-                                                                    tempora harum esse dolorem sunt explicabo.
-                                                                </div>
-                                                            </div>
-                                                            <div>Attachment(s) : <a href="...">files</a></div>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary"
-                                                                data-bs-dismiss="modal">Close</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
-
-                                    </tr>
-                                    <tr class="table-danger">
-                                        <th scope="row">5</th>
-                                        <td>...</td>
-                                        <td>...</td>
-                                        <td>...</td>
-                                        <td>Overdue</td>
-                                        <td class="view-task">
-                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                                data-bs-target="#exampleModal">
-                                                View
-                                            </button>
-
-                                            <!-- Modal -->
-                                            <div class="modal fade" id="exampleModal" tabindex="-1"
-                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h1 class="modal-title fs-5" id="exampleModalLabel">
-                                                                Task title</h1>
-                                                            <button type="button" class="btn-close"
-                                                                data-bs-dismiss="modal" aria-label="Close"></button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <div>Task ID : <span> ... </span></div>
-                                                            <div>Description :
-                                                                <div>Lorem ipsum dolor sit amet consectetur adipisicing
-                                                                    elit. Ab, laborum eos voluptate est quidem ut nam
-                                                                    alias possimus dolore ullam deleniti iusto sit error
-                                                                    tempora harum esse dolorem sunt explicabo.
-                                                                </div>
-                                                            </div>
-                                                            <div>Attachment(s) : <a href="...">files</a></div>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary"
-                                                                data-bs-dismiss="modal">Close</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
-
-                                    </tr>
-                                    <tr class="table-warning">
-                                        <th scope="row">6</th>
-                                        <td>...</td>
-                                        <td>...</td>
-                                        <td>...</td>
-                                        <td>Pending</td>
-                                        <td class="view-task">
-                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                                data-bs-target="#exampleModal">
-                                                View
-                                            </button>
-
-                                            <!-- Modal -->
-                                            <div class="modal fade" id="exampleModal" tabindex="-1"
-                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h1 class="modal-title fs-5" id="exampleModalLabel">
-                                                                Task title</h1>
-                                                            <button type="button" class="btn-close"
-                                                                data-bs-dismiss="modal" aria-label="Close"></button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <div>Task ID : <span> ... </span></div>
-                                                            <div>Description :
-                                                                <div>Lorem ipsum dolor sit amet consectetur adipisicing
-                                                                    elit. Ab, laborum eos voluptate est quidem ut nam
-                                                                    alias possimus dolore ullam deleniti iusto sit error
-                                                                    tempora harum esse dolorem sunt explicabo.
-                                                                </div>
-                                                            </div>
-                                                            <div>Attachment(s) : <a href="...">files</a></div>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary"
-                                                                data-bs-dismiss="modal">Close</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
-
-                                    </tr>
-                                    <tr class="table-danger">
-                                        <th scope="row">7</th>
-                                        <td>...</td>
-                                        <td>...</td>
-                                        <td>...</td>
-                                        <td>Overdue</td>
-                                        <td class="view-task">
-                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                                data-bs-target="#exampleModal">
-                                                View
-                                            </button>
-
-                                            <!-- Modal -->
-                                            <div class="modal fade" id="exampleModal" tabindex="-1"
-                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h1 class="modal-title fs-5" id="exampleModalLabel">
-                                                                Task title</h1>
-                                                            <button type="button" class="btn-close"
-                                                                data-bs-dismiss="modal" aria-label="Close"></button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <div>Task ID : <span> ... </span></div>
-                                                            <div>Description :
-                                                                <div>Lorem ipsum dolor sit amet consectetur adipisicing
-                                                                    elit. Ab, laborum eos voluptate est quidem ut nam
-                                                                    alias possimus dolore ullam deleniti iusto sit error
-                                                                    tempora harum esse dolorem sunt explicabo.
-                                                                </div>
-                                                            </div>
-                                                            <div>Attachment(s) : <a href="...">files</a></div>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary"
-                                                                data-bs-dismiss="modal">Close</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
-
-                                    </tr>
-                                    <tr class="table-warning">
-                                        <th scope="row">8</th>
-                                        <td>...</td>
-                                        <td>...</td>
-                                        <td>...</td>
-                                        <td>Pending</td>
-                                        <td class="view-task">
-                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                                data-bs-target="#exampleModal">
-                                                View
-                                            </button>
-
-                                            <!-- Modal -->
-                                            <div class="modal fade" id="exampleModal" tabindex="-1"
-                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h1 class="modal-title fs-5" id="exampleModalLabel">
-                                                                Task title</h1>
-                                                            <button type="button" class="btn-close"
-                                                                data-bs-dismiss="modal" aria-label="Close"></button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <div>Task ID : <span> ... </span></div>
-                                                            <div>Description :
-                                                                <div>Lorem ipsum dolor sit amet consectetur adipisicing
-                                                                    elit. Ab, laborum eos voluptate est quidem ut nam
-                                                                    alias possimus dolore ullam deleniti iusto sit error
-                                                                    tempora harum esse dolorem sunt explicabo.
-                                                                </div>
-                                                            </div>
-                                                            <div>Attachment(s) : <a href="...">files</a></div>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary"
-                                                                data-bs-dismiss="modal">Close</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
-
-                                    </tr>
-                                    <tr class="table-success">
-                                        <th scope="row">9</th>
-                                        <td>...</td>
-                                        <td>...</td>
-                                        <td>...</td>
-                                        <td>Finished</td>
-                                        <td class="view-task">
-                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                                data-bs-target="#exampleModal">
-                                                View
-                                            </button>
-
-                                            <!-- Modal -->
-                                            <div class="modal fade" id="exampleModal" tabindex="-1"
-                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h1 class="modal-title fs-5" id="exampleModalLabel">
-                                                                Task title</h1>
-                                                            <button type="button" class="btn-close"
-                                                                data-bs-dismiss="modal" aria-label="Close"></button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <div>Task ID : <span> ... </span></div>
-                                                            <div>Description :
-                                                                <div>Lorem ipsum dolor sit amet consectetur adipisicing
-                                                                    elit. Ab, laborum eos voluptate est quidem ut nam
-                                                                    alias possimus dolore ullam deleniti iusto sit error
-                                                                    tempora harum esse dolorem sunt explicabo.
-                                                                </div>
-                                                            </div>
-                                                            <div>Attachment(s) : <a href="...">files</a></div>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary"
-                                                                data-bs-dismiss="modal">Close</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
-
-                                    </tr>
+                                        ";
+                                    }
+                                    ?>
                                 </tbody>
                             </table>
                         </div>
@@ -484,60 +181,7 @@
                             </nav>
                         </div>
 
-                        <!-- Task assignment-->
-                        <div id="task-button" class="col-10 col-auto">
-                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                <!-- Button trigger modal -->
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#createTaskModal">
-                                    Create task
-                                </button>
 
-                                <!-- Modal -->
-                                <div class="modal fade" id="createTaskModal" tabindex="-1"
-                                    aria-labelledby="createTaskModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="createTaskModalLabel">Create Task</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form>
-                                                    <div class="mb-3">
-                                                        <label for="exampleInputEmail1"
-                                                            class="form-label">Description</label>
-                                                        <input type="email" class="form-control"
-                                                            id="exampleInputEmail1">
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="exampleInputPassword1" class="form-label">Staff
-                                                            ID</label>
-                                                        <input type="password" class="form-control"
-                                                            id="exampleInputPassword1">
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="exampleInputPassword1"
-                                                            class="form-label">Deadline</label>
-                                                        <input type="password" class="form-control"
-                                                            id="exampleInputPassword1">
-                                                    </div>
-                                                    <label class="form-label" for="customFile">Upload related
-                                                        documents</label>
-                                                    <input type="file" class="form-control" id="customFile" />
-                                                </form>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary"
-                                                    data-bs-dismiss="modal">Close</button>
-                                                <button type="button" class="btn btn-primary">Submit</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
                         <div class="row justify-content-center">
 

@@ -48,6 +48,5 @@ values (null, 'this is a test title 2', 'this is also a test description 2', 3, 
 insert into task
 values (null, 'this is a test title 3', 'this is also a test description 3', 3, '2022-11-30', '2022-11-5', 'pending', 'dev');
 
-
-
+select * from user;
 
