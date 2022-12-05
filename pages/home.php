@@ -27,6 +27,7 @@
     <div class="container-fluid">
         <div class="row flex-nowrap w-100">
             <?php
+            include "../style/homepage.css";
             include "../components/main/sidebar.php";
             ?>
             <script>
@@ -41,7 +42,82 @@
 
                 <div class="page-content">
                     <!--  -->
-                    Code here
+                    <div class="row pt-2 justify-content-center">
+                        <div id="homeCar" class="carousel slide" data-bs-ride="true">
+                            <div class="carousel-indicators">
+                                <button type="button" data-bs-target="#homeCar" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                                <button type="button" data-bs-target="#homeCar" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                                <button type="button" data-bs-target="#homeCar" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                            </div>
+                            <div class="carousel-inner">
+                                <div id="carItem" class="carousel-item active">
+                                    <img src="../img/Carousel0.jpg" class="img-fluid" alt="img0">
+                                    <div class="carousel-caption d-none d-md-block">
+                                        <p id="quote">The true sign of intelligence is not knowledge, but imagination.</p>
+                                        <p id="author">Albert Einstein</p>
+                                    </div>
+                                </div>
+                                <div id="carItem" class="carousel-item">
+                                    <img src="../img/Carousel1.jpg" class="img-fluid" alt="img1">
+                                    <div class="carousel-caption d-none d-md-block">
+                                        <p id="quote">If everyone is moving forward together, then success takes care of itself.</p>
+                                        <p id="author">Henry Ford</p>
+                                    </div>
+                                </div>
+                                <div id="carItem" class="carousel-item">
+                                    <img src="../img/Carousel2.jpg" class="img-fluid" alt="img2">
+                                    <div class="carousel-caption d-none d-md-block">
+                                        <p id="quote">A leader is one who knows the way, goes the way, and shows the way.</p>
+                                        <p id="author">John C. Maxwell</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#homeCar" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#homeCar" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row pt-2 d-flex justify-content-center">
+                        <div class="col-sm d-flex justify-content-center">
+                            <div class="card text-center w-75">
+                                <img class="card-img-top" src="../img/Card0.png" alt="Card image cap">
+                                <div class="card-body">
+                                    <h5 class="card-title">Latest memos</h5>
+                                    <a id="cardBtn" href="#" class="btn" role="button">Read more</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm d-flex justify-content-center">
+                            <div class="card text-center w-75">
+                                <img class="card-img-top" src="../img/Card1.jpg" alt="Card image cap">
+                                <div class="card-body">
+                                    <h5 class="card-title">Upcoming events</h5>
+                                    <a id="cardBtn" href="#" class="btn" role="button">Read more</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm d-flex justify-content-center">
+                            <div class="card text-center w-75">
+                                <img class="card-img-top" src="../img/Card2.jpg" alt="Card image cap">
+                                <div class="card-body">
+                                    <h5 class="card-title">Contact info</h5>
+                                    <a id="cardBtn" href="#" class="btn" role="button">Read more</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm d-flex justify-content-center">
+                            <div class="card text-center w-75">
+                                <img class="card-img-top" src="../img/Card3.jpg" alt="Card image cap">
+                                <div class="card-body">
+                                    <h5 class="card-title">Company policy</h5>
+                                    <a id="cardBtn" href="#" class="btn" role="button">Read more</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <!--  -->
                 </div>
             </div>
