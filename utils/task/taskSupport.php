@@ -25,3 +25,18 @@ function getTaskRowColor($status)
     else if ($status == 'overdue') return 'danger';
     else if ($status == 'finished') return 'success';
 }
+
+function getAllEmployees()
+{
+    global $conn;
+    $query = " SELECT * FROM user WHERE role != 'admin'";
+    $result = mysqli_query($conn, $query);
+
+    $users = [];
+
+    while ($row = mysqli_fetch_assoc($result)) {
+        array_push($users, $row);
+    }
+
+    return $users;
+}

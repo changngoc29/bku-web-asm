@@ -2,11 +2,16 @@
     <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white">
         <div class="user-branch">
             <img src="../img/HCMUT_official_logo.png" alt="" class="user-branch__logo m-auto d-block">
-
-            <div class="user-branch__desc">
-                <p class="d-block my-1">User's name</p>
-                <span class="d-block my-1">User's role</span>
+            <?php
+            if (isset($_SESSION)) {
+                echo "
+                <div class='user-branch__desc'>
+                <p class='d-block my-1'>{$_SESSION['user_name']}</p>
+                <span class='d-block my-1'>{$_SESSION['user_role']}</span>
             </div>
+                ";
+            };
+            ?>
         </div>
         <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="sidebar-menu">
             <li class="nav-item">

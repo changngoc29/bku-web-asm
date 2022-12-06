@@ -1,5 +1,8 @@
 <?php
 include "./../utils/task/taskSupport.php";
+if (!isset($_SESSION)) {
+    session_start();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -65,27 +68,37 @@ include "./../utils/task/taskSupport.php";
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                <form>
+                                                <form action="./../utils/task/taskHandling.php?action=create" method="POST">
                                                     <div class="mb-3">
                                                         <label for="createTaskTitle" class="form-label">Title</label>
-                                                        <input type="text" class="form-control" id="createTaskTitle">
+                                                        <input type="text" name="title" class="form-control" id="createTaskTitle" required>
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="createTaskDesc" class="form-label">Description</label>
-                                                        <input type="text" class="form-control" id="createTaskDesc">
+                                                        <input type="text" name="desc" class="form-control" id="createTaskDesc" required>
                                                     </div>
                                                     <div class="mb-3">
-                                                        <label for="createTaskStaff" class="form-label">Staff ID</label>
-                                                        <input type="text" class="form-control" id="createTaskStaff">
+                                                        <label for="createTaskStaff" class="form-label">Staff</label>
+                                                        <select id="createTaskStaff" class="form-select" aria-label="Default select example" name="staff-id" required>
+                                                            <option selected disabled>---- Choose staff ---- </option>
+                                                            <?php
+                                                            $users = getAllEmployees();
+                                                            foreach ($users as $user) {
+                                                                echo "
+                                                                    <option value='{$user['id']}'>{$user['fullname']}</option>
+                                                                    ";
+                                                            }
+                                                            ?>
+                                                        </select>
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="createTaskDeadline" class="form-label">Deadline</label>
-                                                        <input type="date" class="form-control" id="createTaskDeadline">
+                                                        <input type="date" name="deadline" class="form-control" id="createTaskDeadline" required>
                                                     </div>
                                                     <label class="form-label" for="customFile">Upload related
                                                         documents</label>
-                                                    <input type="file" class="form-control" id="customFile" />
-                                                    <button type="button" class="btn btn-primary mt-3">Submit</button>
+                                                    <input type="file" name="file" class="form-control" id="customFile" />
+                                                    <button type="submit" class="btn btn-primary mt-3">Submit</button>
                                                 </form>
                                             </div>
                                             <div class="modal-footer">
@@ -123,12 +136,12 @@ include "./../utils/task/taskSupport.php";
                                         <td>{$task['deadline']}</td>
                                         <td>{$task['status']}</td>
                                         <td class='view-task'>
-                                            <button type='button' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#viewTaskModal'>
+                                            <button type='button' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#viewTaskModal{$task['id']}'>
                                                 View
                                             </button>
 
                                             <!-- Modal -->
-                                            <div class='modal fade' id='viewTaskModal' tabindex='-1' aria-labelledby='viewTaskModalLabel' aria-hidden='true'>
+                                            <div class='modal fade' id='viewTaskModal{$task['id']}' tabindex='-1' aria-labelledby='viewTaskModalLabel' aria-hidden='true'>
                                                 <div class='modal-dialog'>
                                                     <div class='modal-content'>
                                                         <div class='modal-header'>
