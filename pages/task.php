@@ -1,6 +1,18 @@
 <?php
 include "./../utils/task/getTask.php";
+
+$limit = 8;
+$page = (isset($_GET['table_no']) && is_numeric($_GET['table_no'])) ? $_GET['table_no'] : 1;
+$paginationStart = ($page - 1) * $limit;
+
+$totalTasks = getAllTask();
+$totalPages = ceil(count($totalTasks) / 8);
+$tasks = array_slice($totalTasks, $paginationStart, $limit);
+
+$prev = $page - 1;
+$next = $page + 1;
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,7 +21,8 @@ include "./../utils/task/getTask.php";
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- CSS only -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous" />
 
     <!-- Google fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,7 +31,9 @@ include "./../utils/task/getTask.php";
     <!-- Bootstrap Icon -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <!-- JavaScript Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+        crossorigin="anonymous"></script>
 
     <style>
         <?php include "../main.css";
@@ -52,32 +67,40 @@ include "./../utils/task/getTask.php";
                         <div id="task-button" class="col-10 col-auto">
                             <div class="d-grid gap-2 d-md-flex justify-content-md-start">
                                 <!-- Button trigger modal -->
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createTaskModal">
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#createTaskModal">
                                     Create task
                                 </button>
 
                                 <!-- Modal -->
-                                <div class="modal fade" id="createTaskModal" tabindex="-1" aria-labelledby="createTaskModalLabel" aria-hidden="true">
+                                <div class="modal fade" id="createTaskModal" tabindex="-1"
+                                    aria-labelledby="createTaskModalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="createTaskModalLabel">Create Task</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
                                                 <form>
                                                     <div class="mb-3">
-                                                        <label for="exampleInputEmail1" class="form-label">Description</label>
-                                                        <input type="email" class="form-control" id="exampleInputEmail1">
+                                                        <label for="description"
+                                                            class="form-label">Description</label>
+                                                        <input type="text" class="form-control"
+                                                            id="description">
                                                     </div>
                                                     <div class="mb-3">
-                                                        <label for="exampleInputPassword1" class="form-label">Staff
-                                                            ID</label>
-                                                        <input type="password" class="form-control" id="exampleInputPassword1">
+                                                    <label for="staffId"
+                                                            class="form-label">Staff ID</label>
+                                                        <input type="text" class="form-control"
+                                                            id="staffId">
                                                     </div>
                                                     <div class="mb-3">
-                                                        <label for="exampleInputPassword1" class="form-label">Deadline</label>
-                                                        <input type="password" class="form-control" id="exampleInputPassword1">
+                                                    <label for="deadline"
+                                                            class="form-label">Deadline</label>
+                                                        <input type="text" class="form-control"
+                                                            id="deadline">
                                                     </div>
                                                     <label class="form-label" for="customFile">Upload related
                                                         documents</label>
@@ -85,7 +108,8 @@ include "./../utils/task/getTask.php";
                                                 </form>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Close</button>
                                                 <button type="button" class="btn btn-primary">Submit</button>
                                             </div>
                                         </div>
@@ -109,7 +133,7 @@ include "./../utils/task/getTask.php";
                                 </thead>
                                 <tbody>
                                     <?php
-                                    $tasks = getAllTask();
+
                                     foreach ($tasks as $task) {
                                         $row_color = getTaskRowColor($task['status']);
                                         echo "
@@ -151,7 +175,7 @@ include "./../utils/task/getTask.php";
                                                     </div>
                                                 </div>
                                             </div>
-                                        </td>
+                                          </td>
                                         ";
                                     }
                                     ?>
@@ -163,19 +187,34 @@ include "./../utils/task/getTask.php";
                         <div id="pagination-bar" class="col-10 col-auto">
                             <nav aria-label="...">
                                 <ul class="pagination justify-content-center">
-                                    <li class="page-item disabled">
-                                        <span class="page-link">Previous</span>
+                                    <li class="page-item <?php if ($page <= 1) {
+                                        echo 'disabled';
+                                    } ?>">
+                                        <a class="page-link"
+                                            href="<?php if ($page <= 1) {
+                                                echo '#';
+                                            } else {
+                                                echo "?table_no=" . $prev;
+                                            } ?>">Previous</a>
                                     </li>
-                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item active">
-                                        <span class="page-link">
-                                            2
-                                            <span class="sr-only"></span>
-                                        </span>
+                                    <?php for ($i = 1; $i <= $totalPages; $i++) { ?>
+                                    <li class="page-item <?php if ($page == $i) {
+                                            echo 'active';
+                                        } ?>">
+                                        <a class="page-link" href="task.php?table_no=<?= $i; ?>">
+                                            <?= $i; ?>  
+                                        </a>
                                     </li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">Next</a>
+                                    <?php } ?>
+                                    <li class="page-item <?php if ($page >= $totalPages) {
+                                        echo 'disabled';
+                                    } ?>">
+                                        <a class="page-link"
+                                            href="<?php if ($page >= $totalPages) {
+                                                echo '#';
+                                            } else {
+                                                echo "?table_no=" . $next;
+                                            } ?>">Next</a>
                                     </li>
                                 </ul>
                             </nav>
