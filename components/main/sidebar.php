@@ -1,4 +1,4 @@
-<div id="sidebar" class="col-2 col-md-2 px-md-2 px-0 ">
+<div id="sidebar" class="col-2 col-md-2 px-md-2 px-0">
     <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white">
         <div class="user-branch">
             <img src="../img/HCMUT_official_logo.png" alt="" class="user-branch__logo m-auto d-block">

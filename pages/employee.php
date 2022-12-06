@@ -7,7 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous" />
-    <link rel="stylesheet" href="../main.css" />
+    <style>
+        <?php
+        include "../main.css";
+        include "../style/employee.css" ?>
+    </style>
     <!-- Google fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -93,7 +97,6 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Save changes</button>
                                     </div>
                                 </div>
                             </div>
@@ -111,7 +114,7 @@
                                     <th scope="col">Dept.</th>
                                 </tr>
                             </thead>
-                            <tbody class="table-group-divider">
+                            <tbody class="table-group-divider custom-tbody">
                                 <?php
                                 include "./../utils/dbConnect.php";
 
@@ -126,23 +129,24 @@
                                     <td>" . $row["role"] . "</td>
                                     <td>" . $row["dep"] . "</td>
                                     <td>
-                                        <button type='button' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#employeeView{$row["id"]}'>
+                                        <button type='button' class='btn btn-primary view-btn' data-bs-toggle='modal' data-bs-target='#exampleModal{$row["id"]}'>
                                             View
                                         </button>
-                                        <div class='modal fade' id='employeeView{$row["id"]}' tabindex='-1' aria-labelledby='employeeViewLabel' aria-hidden='true'>
+                                        <div class='modal fade custom-modal-tbody' id='exampleModal{$row["id"]}' tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true'>
                                             <div class='modal-dialog modal-dialog-centered'>
                                                 <div class='modal-content'>
                                                     <div class='modal-header'>
-                                                        <h1 class='modal-title fs-5' id='employeeViewLabel'>Modal title</h1>
+                                                        <h1 class='modal-title fs-5' id='exampleModalLabel'>Employee Details</h1>
                                                         <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
                                                     </div>
-                                                    <div class='modal-body'>
-                                                        <h4>" . $row["fullname"] . "</h4>
-                                                        <h4>" . $row["gender"] . "</h4>
-                                                        <h4>" . $row["role"] . "</h4>
-                                                        <h4>" . $row["username"] . "</h4>
-                                                        <h4>" . $row["password"] . "</h4>
-                                                        <h4>" . $row["dep"] . "</h4>
+                                                    <div class='modal-body custom-modal-body'>
+                                                        <h4>Full name: <span>" . $row["fullname"] . "<span/></h4>
+                                                        <h4>Gender: <span>" . $row["gender"] . "<span/></h4>
+                                                        <h4>Role: <span>" . $row["role"] . "<span/></h4>
+                                                        <h4>Department: <span>" . $row["dep"] . "<span/></h4>
+                                                        <h4>Username: <span>" . $row["username"] . "<span/></h4>
+                                                        <h4>Password: <span>" . $row["password"] . "<span/></h4>
+                                                        
                                                     </div>
                                                     <div class='modal-footer'>
                                                         <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Close</button>

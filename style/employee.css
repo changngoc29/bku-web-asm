@@ -1,5 +1,15 @@
-.page-content {
-  padding: 10px 20px;
+.page-content .create-btn {
+  padding: 10px;
+}
+
+.page-content .create-btn button {
+  transition: 0.4s;
+}
+
+.page-content .create-btn button:hover {
+  background: #fff;
+  color: #0d6efd;
+  border: solid 1px #0d6efd;
 }
 
 .create-btn .modal-custom .modal-body-custom .form-inner form label {
@@ -26,6 +36,9 @@
   background: none;
   border-radius: 8px;
   transition: 0.4s;
+  background: #0d6efd;
+  color: #fff;
+  border: none;
 }
 
 .create-btn
@@ -34,7 +47,46 @@
   .form-inner
   form
   input[type='submit']:hover {
-  background: #0d6efd;
-  color: #fff;
-  border: none;
+  background: #fff;
+  color: #0d6efd;
+  border: solid 1px #0d6efd;
+}
+
+.page-content .table-wrapper {
+  padding: 10px 20px;
+}
+
+.page-title {
+  padding: 10px;
+}
+
+.page-content
+  .table-wrapper
+  .custom-tbody
+  .custom-modal-tbody
+  .custom-modal-body
+  h4 {
+  font-style: italic;
+  font-weight: 700;
+  padding: 10px;
+}
+
+.page-content
+  .table-wrapper
+  .custom-tbody
+  .custom-modal-tbody
+  .custom-modal-body
+  span {
+  font-style: normal;
+  font-weight: 400;
+}
+
+.page-content .table-wrapper .custom-tbody .view-btn {
+  transition: 0.4s;
+}
+
+.page-content .table-wrapper .custom-tbody .view-btn:hover {
+  background: #fff;
+  color: #0d6efd;
+  border: solid 1px #0d6efd;
 }

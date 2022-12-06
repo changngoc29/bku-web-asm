@@ -1,0 +1,52 @@
+.page-content {
+  padding: 0 20px;
+}
+.home-util {
+  display: block;
+  height: 150px;
+  width: 200px;
+  overflow: hidden;
+}
+
+.home-util .card img {
+  display: block;
+  width: 100%;
+  height: 40px;
+}
+
+#carItem {
+  height: 510px;
+}
+
+#quote {
+  font-weight: bold;
+  font-size: x-large;
+  color: white;
+  text-shadow: 2px 0 #484c7f, -2px 0 #484c7f, 0 2px #484c7f, 0 -2px #484c7f,
+    1px 1px #484c7f, -1px -1px #484c7f, 1px -1px #484c7f, -1px 1px #484c7f;
+}
+
+#author {
+  font-weight: bold;
+  font-size: medium;
+  color: white;
+  text-shadow: 2px 0 #484c7f, -2px 0 #484c7f, 0 2px #484c7f, 0 -2px #484c7f,
+    1px 1px #484c7f, -1px -1px #484c7f, 1px -1px #484c7f, -1px 1px #484c7f;
+}
+
+.card.text-center {
+  width: 24rem;
+  border-width: 1px;
+  border-color: #484c7f;
+}
+
+.card-title {
+  font-weight: bold;
+  color: #484c7f;
+}
+
+#cardBtn {
+  font-weight: bold;
+  color: white;
+  background-color: #484c7f;
+}

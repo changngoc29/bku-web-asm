@@ -10,6 +10,7 @@
     <style>
         <?php
         include "../main.css";
+        include "../style/homepage.css";
         ?>
     </style>
     <!-- Google fonts -->
@@ -27,7 +28,6 @@
     <div class="container-fluid">
         <div class="row flex-nowrap w-100">
             <?php
-            include "../style/homepage.css";
             include "../components/main/sidebar.php";
             ?>
             <script>
@@ -81,8 +81,8 @@
                         </div>
                     </div>
                     <div class="row pt-2 d-flex justify-content-center">
-                        <div class="col-sm d-flex justify-content-center">
-                            <div class="card text-center w-75">
+                        <div class="home-util col-sm d-flex justify-content-center">
+                            <div class="card text-center w-100">
                                 <img class="card-img-top" src="../img/Card0.png" alt="Card image cap">
                                 <div class="card-body">
                                     <h5 class="card-title">Latest memos</h5>
@@ -90,8 +90,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm d-flex justify-content-center">
-                            <div class="card text-center w-75">
+                        <div class="home-util col-sm d-flex justify-content-center">
+                            <div class="card text-center w-100">
                                 <img class="card-img-top" src="../img/Card1.jpg" alt="Card image cap">
                                 <div class="card-body">
                                     <h5 class="card-title">Upcoming events</h5>
@@ -99,8 +99,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm d-flex justify-content-center">
-                            <div class="card text-center w-75">
+                        <div class="home-util col-sm d-flex justify-content-center">
+                            <div class="card text-center w-100">
                                 <img class="card-img-top" src="../img/Card2.jpg" alt="Card image cap">
                                 <div class="card-body">
                                     <h5 class="card-title">Contact info</h5>
@@ -108,8 +108,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm d-flex justify-content-center">
-                            <div class="card text-center w-75">
+                        <div class="home-util col-sm d-flex justify-content-center">
+                            <div class="card text-center w-100">
                                 <img class="card-img-top" src="../img/Card3.jpg" alt="Card image cap">
                                 <div class="card-body">
                                     <h5 class="card-title">Company policy</h5>

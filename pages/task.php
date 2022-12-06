@@ -1,5 +1,5 @@
 <?php
-include "./../utils/task/getTask.php";
+include "./../utils/task/taskSupport.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -67,26 +67,29 @@ include "./../utils/task/getTask.php";
                                             <div class="modal-body">
                                                 <form>
                                                     <div class="mb-3">
-                                                        <label for="exampleInputEmail1" class="form-label">Description</label>
-                                                        <input type="email" class="form-control" id="exampleInputEmail1">
+                                                        <label for="createTaskTitle" class="form-label">Title</label>
+                                                        <input type="text" class="form-control" id="createTaskTitle">
                                                     </div>
                                                     <div class="mb-3">
-                                                        <label for="exampleInputPassword1" class="form-label">Staff
-                                                            ID</label>
-                                                        <input type="password" class="form-control" id="exampleInputPassword1">
+                                                        <label for="createTaskDesc" class="form-label">Description</label>
+                                                        <input type="text" class="form-control" id="createTaskDesc">
                                                     </div>
                                                     <div class="mb-3">
-                                                        <label for="exampleInputPassword1" class="form-label">Deadline</label>
-                                                        <input type="password" class="form-control" id="exampleInputPassword1">
+                                                        <label for="createTaskStaff" class="form-label">Staff ID</label>
+                                                        <input type="text" class="form-control" id="createTaskStaff">
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="createTaskDeadline" class="form-label">Deadline</label>
+                                                        <input type="date" class="form-control" id="createTaskDeadline">
                                                     </div>
                                                     <label class="form-label" for="customFile">Upload related
                                                         documents</label>
                                                     <input type="file" class="form-control" id="customFile" />
+                                                    <button type="button" class="btn btn-primary mt-3">Submit</button>
                                                 </form>
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                <button type="button" class="btn btn-primary">Submit</button>
                                             </div>
                                         </div>
                                     </div>
