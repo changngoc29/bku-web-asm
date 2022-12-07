@@ -48,5 +48,13 @@ values (null, 'this is a test title 2', 'this is also a test description 2', 3, 
 insert into task
 values (null, 'this is a test title 3', 'this is also a test description 3', 3, '2022-11-30', '2022-11-5', 'pending', 'dev');
 
-select * from user;
+insert into task
+values (null, 'this is a test title 4', 'this is also a test description 4', 3, curdate(), '2022-12-9', 'pending', 'dev');
 
+create table files(
+	id int auto_increment,
+    name varchar(100),
+    task_id int,
+    primary key (id),
+    foreign key (task_id) references task(id)
+);

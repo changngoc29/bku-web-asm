@@ -68,7 +68,7 @@ if (!isset($_SESSION)) {
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                <form action="./../utils/task/taskHandling.php?action=create" method="POST">
+                                                <form action="./../utils/task/taskHandling.php?action=create" method="POST" enctype="multipart/form-data">
                                                     <div class="mb-3">
                                                         <label for="createTaskTitle" class="form-label">Title</label>
                                                         <input type="text" name="title" class="form-control" id="createTaskTitle" required>
@@ -97,7 +97,7 @@ if (!isset($_SESSION)) {
                                                     </div>
                                                     <label class="form-label" for="customFile">Upload related
                                                         documents</label>
-                                                    <input type="file" name="file" class="form-control" id="customFile" />
+                                                    <input type="file" name="file[]" class="form-control" id="customFile" multiple="multiple" />
                                                     <button type="submit" class="btn btn-primary mt-3">Submit</button>
                                                 </form>
                                             </div>
