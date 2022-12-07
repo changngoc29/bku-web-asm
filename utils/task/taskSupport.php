@@ -40,3 +40,18 @@ function getAllEmployees()
 
     return $users;
 }
+
+function getAllFilesRelated($taskId)
+{
+    global $conn;
+    $query = "SELECT * FROM files WHERE task_id=$taskId";
+    $result = mysqli_query($conn, $query);
+
+    $files = [];
+
+    while ($row = mysqli_fetch_assoc($result)) {
+        array_push($files, $row);
+    }
+
+    return $files;
+}

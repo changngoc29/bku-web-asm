@@ -128,6 +128,13 @@ if (!isset($_SESSION)) {
                                     $tasks = getAllTask();
                                     foreach ($tasks as $task) {
                                         $row_color = getTaskRowColor($task['status']);
+                                        $files = getAllFilesRelated($task['id']);
+                                        $fileLinksHTML = "";
+                                        foreach ($files as $file) {
+                                            $fileLinksHTML = $fileLinksHTML . "
+                                            <a class='d-block m-0 p-0' href='http://localhost/web-assignment/utils/task/dowload.php?file={$file['name']}'>{$file['name']}</a>
+                                            ";
+                                        }
                                         echo "
                                         <tr class='table-{$row_color}'>
                                         <th scope='row' class='task-id'>{$task['id']}</th>
@@ -159,7 +166,8 @@ if (!isset($_SESSION)) {
                                                             <div>Employee : <span> {$task['staff_id']} </span></div>
                                                             <div>Start Date : <span> {$task['start_date']} </span></div>
                                                             <div>Due Date : <span> {$task['deadline']} </span></div>
-                                                            <div>Attachment(s) : <a href='...'>files</a></div>
+                                                            <div class='mb-1'>Attachment(s) :</div>
+                                                            <div class='m-0 p-0'>{$fileLinksHTML}</div>
                                                         </div>
                                                         <div class='modal-footer'>
                                                             <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Close</button>
