@@ -55,9 +55,15 @@ if (!isset($_SESSION)) {
                         <div id="task-button" class="col-10 col-auto">
                             <div class="d-grid gap-2 d-md-flex justify-content-md-start">
                                 <!-- Button trigger modal -->
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createTaskModal">
+                                <?php
+                                if (isset($_SESSION) && $_SESSION['user_role'] == 'manager') {
+                                    echo '
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createTaskModal">
                                     Create task
-                                </button>
+                                    </button>
+                                    ';
+                                }
+                                ?>
 
                                 <!-- Modal -->
                                 <div class="modal fade" id="createTaskModal" tabindex="-1" aria-labelledby="createTaskModalLabel" aria-hidden="true">
@@ -117,7 +123,7 @@ if (!isset($_SESSION)) {
                                     <tr>
                                         <th scope="col">Task ID</th>
                                         <th scope="col">Title</th>
-                                        <th scope="col">Staff ID</th>
+                                        <th scope="col">Staff</th>
                                         <th scope="col">Deadline</th>
                                         <th scope="col">Status</th>
                                         <th scope="col">Action</th>
@@ -135,19 +141,48 @@ if (!isset($_SESSION)) {
                                             <a class='d-block m-0 p-0' href='http://localhost/web-assignment/utils/task/dowload.php?file={$file['name']}'>{$file['name']}</a>
                                             ";
                                         }
+                                        $task_user = getUserById($task['staff_id']);
+                                        $delete_button = $_SESSION['user_role'] != 'employee' ? "<a class='btn btn-danger' href='http://localhost/web-assignment/utils/task/taskHandling.php?action=delete&id={$task['id']}'>Delete</a>" : "";
+                                        $activeSubmitBtn = $task['status'] == 'pending' ? '' : 'disabled';
+                                        $submit_button = $_SESSION['user_role'] == 'employee' ? "<button type='button' class='btn btn-light {$activeSubmitBtn}' data-bs-toggle='modal' data-bs-target='#submitTaskModal{$task['id']}'>Submit</button>" : "";
+
+                                        $submitFiles = [];
+                                        if ($task['status'] == 'finished') {
+                                            $submitTask = getTaskSubmit($task['id']);
+                                            $submitFiles = getAllFilesSubmit($task['id']);
+                                        }
+                                        $fileSubmitLinksHTML = "";
+                                        foreach ($submitFiles as $file) {
+                                            $fileSubmitLinksHTML = $fileSubmitLinksHTML . "
+                                            <a class='d-block m-0 p-0' href='http://localhost/web-assignment/utils/task/dowload.php?file={$file['name']}'>{$file['name']}</a>
+                                            ";
+                                        }
+
+                                        $submitTaskHTML = $task['status'] == 'finished' ? "
+                                        <hr>
+                                        <div><p>SUBMISSION:</p></div>
+                                        <div>Description: {$submitTask['description']}</div>
+                                        <div>Files: </div>
+                                        <div>{$fileSubmitLinksHTML}</div>
+                                        " : "";
+
                                         echo "
                                         <tr class='table-{$row_color}'>
                                         <th scope='row' class='task-id'>{$task['id']}</th>
                                         <td>{$task['title']}</td>
-                                        <td>{$task['staff_id']}</td>
+                                        <td>{$task_user['fullname']}</td>
                                         <td>{$task['deadline']}</td>
                                         <td>{$task['status']}</td>
                                         <td class='view-task'>
                                             <button type='button' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#viewTaskModal{$task['id']}'>
                                                 View
                                             </button>
+                                            {$delete_button}
+                                            {$submit_button}
+                                        </td>
+                                            
 
-                                            <!-- Modal -->
+                                            <!-- View Modal -->
                                             <div class='modal fade' id='viewTaskModal{$task['id']}' tabindex='-1' aria-labelledby='viewTaskModalLabel' aria-hidden='true'>
                                                 <div class='modal-dialog'>
                                                     <div class='modal-content'>
@@ -163,11 +198,42 @@ if (!isset($_SESSION)) {
                                                                 {$task['description']}
                                                                 </div>
                                                             </div>
-                                                            <div>Employee : <span> {$task['staff_id']} </span></div>
+                                                            <div>Employee : <span> {$task_user['fullname']} </span></div>
                                                             <div>Start Date : <span> {$task['start_date']} </span></div>
                                                             <div>Due Date : <span> {$task['deadline']} </span></div>
                                                             <div class='mb-1'>Attachment(s) :</div>
                                                             <div class='m-0 p-0'>{$fileLinksHTML}</div>
+
+                                                            {$submitTaskHTML}
+                                                            
+                                                        </div>
+                                                        <div class='modal-footer'>
+                                                            <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Close</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Submit Modal -->
+                                            <div class='modal fade' id='submitTaskModal{$task['id']}' tabindex='-1' aria-labelledby='submitTaskModalLabel' aria-hidden='true'>
+                                                <div class='modal-dialog'>
+                                                    <div class='modal-content'>
+                                                        <div class='modal-header'>
+                                                            <h1 class='modal-title fs-5' id='submitTaskModalLabel'>
+                                                                {$task['title']}</h1>
+                                                            <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
+                                                        </div>
+                                                        <div class='modal-body'>
+                                                        <form action='./../utils/task/taskHandling.php?action=submit&id={$task['id']}' method='POST' enctype='multipart/form-data'>
+                                                            <div class='mb-3'>
+                                                                <label for='submitDescInput' class='form-label'>Description</label>
+                                                                <input type='text' name='desc' class='form-control' id='submitDescInput' required>
+                                                            </div>
+                                                            <label class='form-label' for='submitCustomFile'>Upload related
+                                                                documents</label>
+                                                            <input type='file' name='file[]' class='form-control' id='submitCustomFile' multiple='multiple' />
+                                                            <button type='submit' class='btn btn-primary mt-3'>Submit</button>
+                                                        </form>
                                                         </div>
                                                         <div class='modal-footer'>
                                                             <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Close</button>
@@ -183,8 +249,9 @@ if (!isset($_SESSION)) {
                             </table>
                         </div>
 
+
                         <!-- Pagination for table-->
-                        <div id="pagination-bar" class="col-10 col-auto">
+                        <div id="pagination-bar" class="col-10 col-auto mt-1">
                             <nav aria-label="...">
                                 <ul class="pagination justify-content-center">
                                     <li class="page-item disabled">

@@ -50,9 +50,16 @@ if (!isset($_SESSION)) {
                     <!--  -->
                     <div class="create-btn">
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-primary custom-create-btn" data-bs-toggle="modal" data-bs-target="#employeeCreateModal">
+                        <?php
+                        if (isset($_SESSION) && $_SESSION['user_role'] == 'director') {
+                            echo '
+                            <button type="button" class="btn btn-primary custom-create-btn" data-bs-toggle="modal" data-bs-target="#employeeCreateModal">
                             Add employee
-                        </button>
+                            </button>
+                            ';
+                        }
+                        ?>
+
                         <div class="modal fade modal-custom" id="employeeCreateModal" tabindex="-1" aria-labelledby="employeeCreateModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered">
                                 <div class="modal-content">
@@ -108,7 +115,7 @@ if (!isset($_SESSION)) {
                         </div>
                     </div>
 
-                    <div class="table-wrapper">
+                    <div id="employeeListTable" class="table-wrapper">
                         <table class="table">
                             <thead>
                                 <tr>
@@ -123,7 +130,11 @@ if (!isset($_SESSION)) {
                                 <?php
                                 include "./../utils/dbConnect.php";
 
+
                                 $query = " SELECT * FROM user";
+                                if (isset($_SESSION) && $_SESSION['user_dep'] != '') {
+                                    $query = " SELECT * FROM user WHERE dep='{$_SESSION['user_dep']}'";
+                                }
                                 $result = mysqli_query($conn, $query);
 
                                 while ($row = mysqli_fetch_assoc($result)) {
@@ -149,8 +160,7 @@ if (!isset($_SESSION)) {
                                                         <h4>Gender: <span>" . $row["gender"] . "<span/></h4>
                                                         <h4>Role: <span>" . $row["role"] . "<span/></h4>
                                                         <h4>Department: <span>" . $row["dep"] . "<span/></h4>
-                                                        <h4>Username: <span>" . $row["username"] . "<span/></h4>
-                                                        <h4>Password: <span>" . $row["password"] . "<span/></h4>
+                                                        <h4>Phone: <span>" . $row["phone"] . "<span/></h4>
                                                         
                                                     </div>
                                                     <div class='modal-footer'>

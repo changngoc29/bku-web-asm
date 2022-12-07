@@ -1,7 +1,9 @@
 <?php
+include "./../utils/user/getUser.php";
 if (!isset($_SESSION)) {
     session_start();
 }
+$user = getUserById($_SESSION['user_id']);
 ?>
 
 <!DOCTYPE html>
@@ -48,9 +50,7 @@ if (!isset($_SESSION)) {
                 <div class="page-content">
                     <!--  -->
                     <div class="row justify-content-center">
-                        <div id="profile-pic" class="col-4 col-auto">
-                            <img src="../img/avatar-icon.png" alt="">
-                        </div>
+
                         <div id="profile-info" class="col-8 col-auto">
                             <div class="card">
                                 <div class="card-body">
@@ -59,16 +59,16 @@ if (!isset($_SESSION)) {
                                             <p class="mb-0">Full Name</p>
                                         </div>
                                         <div class="col-sm-9">
-                                            <p class="text-muted mb-0">Johnatan Smith</p>
+                                            <p class="text-muted mb-0"><?php echo $user['fullname']; ?></p>
                                         </div>
                                     </div>
                                     <hr>
                                     <div class="row">
                                         <div class="col-sm-3">
-                                            <p class="mb-0">Email</p>
+                                            <p class="mb-0">Gender</p>
                                         </div>
                                         <div class="col-sm-9">
-                                            <p class="text-muted mb-0">example@example.com</p>
+                                            <p class="text-muted mb-0"><?php echo $user['gender']; ?></p>
                                         </div>
                                     </div>
                                     <hr>
@@ -77,7 +77,7 @@ if (!isset($_SESSION)) {
                                             <p class="mb-0">Phone</p>
                                         </div>
                                         <div class="col-sm-9">
-                                            <p class="text-muted mb-0">(097) 234-5678</p>
+                                            <p class="text-muted mb-0"><?php echo $user['phone']; ?></p>
                                         </div>
                                     </div>
                                     <hr>
@@ -86,7 +86,34 @@ if (!isset($_SESSION)) {
                                             <p class="mb-0">Department</p>
                                         </div>
                                         <div class="col-sm-9">
-                                            <p class="text-muted mb-0">Finance</p>
+                                            <p class="text-muted mb-0"><?php echo $user['dep'] == 'dev' ? 'Developer' : ($user['dep'] == 'hr' ? 'Human Resources' : ''); ?></p>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <p class="mb-0">Role</p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <p class="text-muted mb-0"><?php echo $user['role'] ?></p>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <p class="mb-0">Username</p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <p class="text-muted mb-0"><?php echo $user['username'] ?></p>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <p class="mb-0">Password</p>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <p class="text-muted mb-0">*****************</p>
                                         </div>
                                     </div>
                                 </div>
@@ -108,22 +135,22 @@ if (!isset($_SESSION)) {
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                <form>
+                                                <form action="./../utils/user/changePassword.php" method="POST">
                                                     <div class="mb-3">
                                                         <label for="oldPw" class="form-label">Enter old
                                                             password: </label>
-                                                        <input type="password" class="form-control" id="oldPw">
+                                                        <input type="password" name="oldPassword" class="form-control" id="oldPw">
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="newPw" class="form-label">Enter new
                                                             password:</label>
-                                                        <input type="password" class="form-control" id="newPw">
+                                                        <input type="password" name="newPassword" class="form-control" id="newPw">
                                                     </div>
+                                                    <button type="submit" class="btn btn-primary">Change</button>
                                                 </form>
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                <button type="button" class="btn btn-primary">Change</button>
                                             </div>
                                         </div>
                                     </div>
