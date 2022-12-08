@@ -4,7 +4,7 @@ if (!isset($_SESSION)) {
     session_start();
 }
 
-$limit = 8;
+$limit = 9;
 $page = (isset($_GET['table_no']) && is_numeric($_GET['table_no'])) ? $_GET['table_no'] : 1;
 $paginationStart = ($page - 1) * $limit;
 
@@ -142,7 +142,7 @@ $next = $page + 1;
                                 </thead>
                                 <tbody>
                                     <?php
-                                    $tasks = getAllTask();
+                                    // $tasks = getAllTask();
                                     foreach ($tasks as $task) {
                                         $row_color = getTaskRowColor($task['status']);
                                         $files = getAllFilesRelated($task['id']);
