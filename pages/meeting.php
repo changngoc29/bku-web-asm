@@ -51,20 +51,20 @@ if (!isset($_SESSION)) {
                     <div class="create-btn">
                         <!-- Button trigger modal -->
                         <?php
-                        if (isset($_SESSION) && $_SESSION['user_role'] == 'director') {
+                        if (isset($_SESSION) && $_SESSION['user_role'] != 'employee') {
                             echo '
-                            <button type="button" class="btn btn-primary custom-create-btn" data-bs-toggle="modal" data-bs-target="#employeeCreateModal">
-                            Add employee
+                            <button type="button" class="btn btn-primary custom-create-btn" data-bs-toggle="modal" data-bs-target="#meetingCreateModal">
+                            Add meeting
                             </button>
                             ';
                         }
                         ?>
 
-                        <div class="modal fade modal-custom" id="employeeCreateModal" tabindex="-1" aria-labelledby="employeeCreateModalLabel" aria-hidden="true">
+                        <div class="modal fade modal-custom" id="meetingCreateModal" tabindex="-1" aria-labelledby="meetingCreateModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="employeeCreateModalLabel">Employee Information Registration</h1>
+                                        <h1 class="modal-title fs-5" id="meetingCreateModalLabel">Meeting Registration</h1>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body modal-body-custom">
@@ -88,36 +88,17 @@ if (!isset($_SESSION)) {
                                             <?php
                                             }
                                             ?>
-                                            <form action="../utils/employee/addEmployee.php" method="POST">
-                                                <label for="">Full name</label><br>
-                                                <input class="form-control" type="text" name="fullname" placeholder="Enter full name"><br>
-                                                <label for="">Gender</label><br>
-                                                <select class="form-select" aria-label="Default select example" name="gender" required>
-                                                    <option selected disabled>---- Choose gender ---- </option>
-                                                    <option value="male">Male</option>
-                                                    <option value="female">Female</option>
-                                                </select><br>
-                                                <label for="">Phone number</label><br>
-                                                <input class="form-control" type="text" name="phone" placeholder="Enter phone no."><br>
-                                                <label for="">Username</label><br>
-                                                <input class="form-control" type="text" name="username" placeholder="Enter username"><br>
-                                                <label for="">Password</label><br>
-                                                <input class="form-control" type="text" name="password" placeholder="Enter password"><br>
-                                                <label for="">Role</label><br>
-                                                <select class="form-select" aria-label="Default select example" name="role" required>
-                                                    <option selected disabled>---- Choose role ---- </option>
-                                                    <option value="manager">Manager</option>
-                                                    <option value="employee">Employee</option>
-                                                </select><br>
-                                                <br>
-                                                <label for="">Department</label><br>
-                                                <select class="form-select" aria-label="Default select example" name="dep" required>
-                                                    <option selected disabled>---- Choose department ---- </option>
-                                                    <option value="dev">Developer</option>
-                                                    <option value="hr">Human Resources</option>
-                                                </select>
-                                                <br>
-                                                <input type="submit" name="submit" value="Add"><br>
+                                            <form action="../utils/meeting/addMeeting.php" method="POST">
+                                                <label for="">Name</label><br>
+                                                <input class="form-control" type="text" name="name" placeholder="Enter meeting name"><br>
+                                                <label for="">Time</label><br>
+                                                <input class="form-control" type="time" name="time" placeholder="Enter meeting time"><br>
+                                                <label for="">Date</label><br>
+                                                <input class="form-control" type="date" name="date"><br>
+                                                <label for="">Room</label><br>
+                                                <input class="form-control" type="text" name="room" placeholder="Enter meeting room"><br>
+
+                                                <input class="btn btn-primary" type="submit" name="submit" value="Add"><br>
                                             </form>
                                         </div>
                                     </div>
@@ -134,10 +115,12 @@ if (!isset($_SESSION)) {
                             <thead>
                                 <tr>
                                     <th scope="col">ID</th>
-                                    <th scope="col">Full name</th>
-                                    <th scope="col">Gender</th>
-                                    <th scope="col">Role</th>
-                                    <th scope="col">Dept.</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Host</th>
+                                    <th scope="col">Time</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Room</th>
+                                    <th scope="col">Deparment</th>
                                 </tr>
                             </thead>
                             <tbody class="table-group-divider custom-tbody">
@@ -145,45 +128,23 @@ if (!isset($_SESSION)) {
                                 include "./../utils/dbConnect.php";
 
 
-                                $query = " SELECT * FROM user ORDER BY dep";
-                                if (isset($_SESSION) && $_SESSION['user_dep'] != '') {
-                                    $query = " SELECT * FROM user WHERE dep='{$_SESSION['user_dep']}' ORDER BY dep";
+                                $query = " SELECT * FROM meeting ORDER BY date";
+                                if (isset($_SESSION) && $_SESSION['user_dep'] == 'manager') {
+                                    $query = " SELECT * FROM meeting WHERE dep='{$_SESSION['user_dep']}' OR dep=''";
+                                } else if (isset($_SESSION) && $_SESSION['user_dep'] == 'employee') {
+                                    $query = " SELECT * FROM meeting WHERE dep='{$_SESSION['user_dep']}'";
                                 }
                                 $result = mysqli_query($conn, $query);
 
                                 while ($row = mysqli_fetch_assoc($result)) {
                                     echo "<tr>
                                     <th scope='row'>" . $row["id"] . "</th>
-                                    <td>" . $row["fullname"] . "</td>
-                                    <td>" . $row["gender"] . "</td>
-                                    <td>" . $row["role"] . "</td>
+                                    <td>" . $row["name"] . "</td>
+                                    <td>" . $row["host"] . "</td>
+                                    <td>" . $row["time"] . "</td>
+                                    <td>" . $row["date"] . "</td>
+                                    <td>" . $row["room"] . "</td>
                                     <td>" . $row["dep"] . "</td>
-                                    <td>
-                                        <button type='button' class='btn btn-primary view-btn' data-bs-toggle='modal' data-bs-target='#exampleModal{$row["id"]}'>
-                                            View
-                                        </button>
-                                        <div class='modal fade custom-modal-tbody' id='exampleModal{$row["id"]}' tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true'>
-                                            <div class='modal-dialog modal-dialog-centered'>
-                                                <div class='modal-content'>
-                                                    <div class='modal-header'>
-                                                        <h1 class='modal-title fs-5' id='exampleModalLabel'>Employee Details</h1>
-                                                        <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
-                                                    </div>
-                                                    <div class='modal-body custom-modal-body'>
-                                                        <h4>Full name: <span>" . $row["fullname"] . "<span/></h4>
-                                                        <h4>Gender: <span>" . $row["gender"] . "<span/></h4>
-                                                        <h4>Role: <span>" . $row["role"] . "<span/></h4>
-                                                        <h4>Department: <span>" . $row["dep"] . "<span/></h4>
-                                                        <h4>Phone: <span>" . $row["phone"] . "<span/></h4>
-                                                        
-                                                    </div>
-                                                    <div class='modal-footer'>
-                                                        <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Close</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
                                 </tr>";
                                 }
                                 ?>

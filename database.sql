@@ -89,10 +89,27 @@ create table submit_file(
     primary key (id),
     foreign key (task_id) references task(id) on delete cascade
 );
+
+create table meeting(
+	id int auto_increment,
+    name varchar(100),
+    time time,
+    date date,
+    host varchar(50),
+    room varchar(50),
+    dep varchar(10),
+    primary key(id)
+);
+
+delete from user where id=12;
+
+select * from meeting;
+drop table meeting;
 select * from user;
 select * from task;
 select * from submit_task;
 delete from submit_task where id=2;
 select * from submit_file;
 select * from files;
-	
+
+
