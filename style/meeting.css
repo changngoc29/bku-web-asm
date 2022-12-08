@@ -1,0 +1,8 @@
+.page-content {
+  padding: 10px 20px;
+}
+
+#employeeListTable {
+  height: 550px;
+  overflow-y: scroll;
+}

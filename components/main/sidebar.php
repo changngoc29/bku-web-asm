@@ -32,6 +32,19 @@
                     <span class="ms-1 d-none d-sm-inline">Employees</span>
                 </a>
             </li>
+            <li>
+                <a href="http://localhost/web-assignment/index.php?page=meeting" class="nav-link px-0 align-middle">
+                    <i class="fs-4 bi-camera-reels"></i>
+                    <span class="ms-1 d-none d-sm-inline">Meetings</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost/web-assignment/index.php?page=calendar" class="nav-link px-0 align-middle">
+                    <i class="fs-4 bi-calendar"></i>
+                    <span class="ms-1 d-none d-sm-inline">Calendar</span>
+                </a>
+            </li>
+
         </ul>
         <hr />
         <ul id="sidebar-user" class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start w-100 pt-5 border-top">

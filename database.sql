@@ -91,8 +91,8 @@ create table submit_file(
 );
 select * from user;
 select * from task;
-select * from files;
 select * from submit_task;
 delete from submit_task where id=2;
 select * from submit_file;
+select * from files;
 	

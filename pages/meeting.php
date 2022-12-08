@@ -1,8 +1,10 @@
 <?php
+// include "./../utils/user/getUser.php";
 if (!isset($_SESSION)) {
     session_start();
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,9 +15,8 @@ if (!isset($_SESSION)) {
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous" />
     <style>
-        <?php
-        include "../main.css";
-        include "../style/employee.css" ?>
+        <?php include "../main.css";
+        include "../style/meeting.css" ?>
     </style>
     <!-- Google fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -25,25 +26,24 @@ if (!isset($_SESSION)) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="../style/employee.css">
-    <title>Employee</title>
+    <title>Meeting</title>
 </head>
 
 <body>
     <div class="container-fluid">
-        <div class="row flex-nowrap">
+        <div class="row flex-nowrap w-100">
             <?php
             include "../components/main/sidebar.php";
             ?>
 
             <script>
-                var employeeLink = document.querySelector('#sidebar-menu li:nth-child(3)');
-                employeeLink.classList.add('isActive');
+                var profileLink = document.querySelector('#sidebar-menu li:nth-child(4)');
+                profileLink.classList.add('isActive');
             </script>
 
             <div class="col-auto col-10 p-0">
                 <div class="page-title">
-                    <h2>Employee</h2>
+                    <h2>Profile</h2>
                 </div>
 
                 <div class="page-content">
@@ -190,6 +190,7 @@ if (!isset($_SESSION)) {
                             </tbody>
                         </table>
                     </div>
+
                     <!--  -->
                 </div>
             </div>

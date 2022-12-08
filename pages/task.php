@@ -3,6 +3,17 @@ include "./../utils/task/taskSupport.php";
 if (!isset($_SESSION)) {
     session_start();
 }
+
+$limit = 8;
+$page = (isset($_GET['table_no']) && is_numeric($_GET['table_no'])) ? $_GET['table_no'] : 1;
+$paginationStart = ($page - 1) * $limit;
+
+$totalTasks = getAllTask();
+$totalPages = ceil(count($totalTasks) / 8);
+$tasks = array_slice($totalTasks, $paginationStart, $limit);
+
+$prev = $page - 1;
+$next = $page + 1;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -201,6 +212,7 @@ if (!isset($_SESSION)) {
                                                             <div>Employee : <span> {$task_user['fullname']} </span></div>
                                                             <div>Start Date : <span> {$task['start_date']} </span></div>
                                                             <div>Due Date : <span> {$task['deadline']} </span></div>
+                                                            <div>Department : <span> {$task['dep']} </span></div>
                                                             <div class='mb-1'>Attachment(s) :</div>
                                                             <div class='m-0 p-0'>{$fileLinksHTML}</div>
 
@@ -251,22 +263,35 @@ if (!isset($_SESSION)) {
 
 
                         <!-- Pagination for table-->
-                        <div id="pagination-bar" class="col-10 col-auto mt-1">
+                        <div id="pagination-bar" class="col-10 col-auto">
                             <nav aria-label="...">
                                 <ul class="pagination justify-content-center">
-                                    <li class="page-item disabled">
-                                        <span class="page-link">Previous</span>
+                                    <li class="page-item <?php if ($page <= 1) {
+                                                                echo 'disabled';
+                                                            } ?>">
+                                        <a class="page-link" href="<?php if ($page <= 1) {
+                                                                        echo '#';
+                                                                    } else {
+                                                                        echo "?table_no=" . $prev;
+                                                                    } ?>">Previous</a>
                                     </li>
-                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item active">
-                                        <span class="page-link">
-                                            2
-                                            <span class="sr-only"></span>
-                                        </span>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">Next</a>
+                                    <?php for ($i = 1; $i <= $totalPages; $i++) { ?>
+                                        <li class="page-item <?php if ($page == $i) {
+                                                                    echo 'active';
+                                                                } ?>">
+                                            <a class="page-link" href="task.php?table_no=<?= $i; ?>">
+                                                <?= $i; ?>
+                                            </a>
+                                        </li>
+                                    <?php } ?>
+                                    <li class="page-item <?php if ($page >= $totalPages) {
+                                                                echo 'disabled';
+                                                            } ?>">
+                                        <a class="page-link" href="<?php if ($page >= $totalPages) {
+                                                                        echo '#';
+                                                                    } else {
+                                                                        echo "?table_no=" . $next;
+                                                                    } ?>">Next</a>
                                     </li>
                                 </ul>
                             </nav>
